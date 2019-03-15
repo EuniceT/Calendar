@@ -1,8 +1,11 @@
 package com.example.matthew.calendarapp;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
 
@@ -13,6 +16,10 @@ public class MainActivity extends AppCompatActivity {
 
     CalendarView calendarView;
     TextView Date;
+    Button AddButton;
+    Button SButton;
+    Button RemoveButton;
+    String the_date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,24 +28,39 @@ public class MainActivity extends AppCompatActivity {
 
         calendarView = (CalendarView) findViewById(R.id.calendarView);
         Date = (TextView) findViewById(R.id.Date);
-
+        AddButton = (Button) findViewById(R.id.Addbutton);
+        SButton = (Button) findViewById(R.id.Sbutton);
+        RemoveButton = (Button) findViewById(R.id.Removebutton);
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2)
             {
-                String the_date = (i1+1) + "/" + i2 + "/" + i;
+                the_date = (i1+1) + "/" + i2 + "/" + i;
                 Date.setText(the_date);
+
             }
         });
 
-        //add event class
+    }
 
-        //remove event class
+    public void EventAdding( View view)
+    {
+        Intent intent = new Intent( this, AddingActivity.class);
+        intent.putExtra("USER DATE", the_date);
+        startActivity(intent);
+    }
 
-        //view event class
+    public void EventRemoval( View view)
+    {
+        Intent intent = new Intent( this, RemoveEvent.class);
+        startActivity(intent);
+    }
 
-        //search event class
 
+    public void EventView( View view)
+    {
+        Intent intent = new Intent( this, ViewEvent.class);
+        startActivity(intent);
     }
 }
